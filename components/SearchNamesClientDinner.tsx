@@ -140,6 +140,11 @@ export default function SearchNamesClientDinner({ names }: Props) {
           >
             Clear
           </button>
+          {suggestions[0] && suggestions[0].arrived && suggestions[0].table && (
+            <div className="text-sm text-sage-700">
+              Table {suggestions[0].table}
+            </div>
+          )}
         </div>
       )}
 
