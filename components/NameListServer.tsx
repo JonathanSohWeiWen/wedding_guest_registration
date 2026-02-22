@@ -25,6 +25,7 @@ async function fetchNames(): Promise<Guest[]> {
       })
       .filter((g) => g.name);
 
+    console.log(`fetched successfully: ${guests.length} records`);
     return guests;
   } catch (err) {
     console.error("fetchNames error:", err);

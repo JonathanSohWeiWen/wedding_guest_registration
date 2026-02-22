@@ -24,7 +24,7 @@ async function fetchDinnerGuests(): Promise<GuestDinner[]> {
         return { name, table, arrived: arrivedRaw === "YES" } as GuestDinner;
       })
       .filter((g) => g.name);
-
+    console.log(`fetched successfully: ${guests.length} records`);
     return guests;
   } catch (err) {
     console.error("fetchDinnerGuests error:", err);
