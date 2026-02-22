@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { getSheetsClient } from "../../lib/google";
-import { SPREADSHEET_ID } from "../../../.secrets/secrets";
 
 type Body = { name?: string };
 
@@ -11,7 +10,7 @@ export async function POST(req: Request) {
     if (!name)
       return NextResponse.json({ error: "Missing name" }, { status: 400 });
 
-    const spreadsheetId = SPREADSHEET_ID;
+    const spreadsheetId = process.env.SPREADSHEET_ID;
     if (!spreadsheetId)
       return NextResponse.json(
         { error: "Missing spreadsheet id" },
