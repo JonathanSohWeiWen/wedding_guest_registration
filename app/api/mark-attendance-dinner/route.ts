@@ -65,7 +65,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const range = `Dinner!H${rowNumber}`;
+    const range = `Dinner!D${rowNumber}`;
 
     await sheets.spreadsheets.values.update({
       spreadsheetId,

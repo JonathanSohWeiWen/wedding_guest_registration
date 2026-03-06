@@ -56,7 +56,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const range = `Church!H${rowNumber}`;
+    const range = `Church!D${rowNumber}`;
     await sheets.spreadsheets.values.update({
       spreadsheetId,
       range,
