@@ -38,7 +38,7 @@ export default function DinnerPage() {
                 ? "Already here!"
                 : loading
                   ? "Marking..."
-                  : `${guest.name} has arrived for dinner`
+                  : `I am here! Mark my attendance`
             }
             renderExtraContent={(guest) =>
               guest.table ? (

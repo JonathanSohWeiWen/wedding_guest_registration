@@ -38,7 +38,7 @@ export default function ChurchPage() {
                 ? "Already here!"
                 : loading
                   ? "Marking..."
-                  : `${guest.name} has arrived at the church`
+                  : `I here! Mark my attendance`
             }
           />
         </div>
