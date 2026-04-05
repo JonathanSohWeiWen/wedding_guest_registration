@@ -20,7 +20,7 @@ export async function fetchChurchGuests(): Promise<GuestChurch[]> {
       .slice(1)
       .map((row) => {
         const name = (row[0] || "").toString().trim();
-        const arrivedRaw = (row[7] || "").toString().trim().toUpperCase();
+        const arrivedRaw = (row[3] || "").toString().trim().toUpperCase();
         return { name, arrived: arrivedRaw === "YES" } as GuestChurch;
       })
       .filter((g) => g.name);
@@ -48,8 +48,8 @@ export async function fetchDinnerGuests(): Promise<GuestDinner[]> {
       .slice(1)
       .map((row) => {
         const name = (row[0] || "").toString().trim();
-        const table = (row[3] || "").toString().trim();
-        const arrivedRaw = (row[7] || "").toString().trim().toUpperCase();
+        const table = (row[4] || "").toString().trim();
+        const arrivedRaw = (row[3] || "").toString().trim().toUpperCase();
         return { name, table, arrived: arrivedRaw === "YES" } as GuestDinner;
       })
       .filter((g) => g.name);

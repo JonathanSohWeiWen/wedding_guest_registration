@@ -14,12 +14,12 @@ export default function DinnerPage() {
   }, []);
 
   return (
-    <div className="flex h-screen items-start justify-center bg-gradient-to-br from-sage-50 via-white to-cream-50 font-sans">
+    <div className="flex h-screen items-start justify-center bg-linear-to-br from-sage-50 via-white to-cream-50 font-sans">
       <main className="w-full h-full pt-8 pb-8 px-6 flex flex-col">
         <div className="h-full w-full rounded-2xl bg-white p-8 shadow-lg border border-sage-200 flex flex-col">
           <div className="text-center mb-8">
             <p className="text-xl font-serif text-sage-600 mb-2">
-              Jonathan & Rachelle's Wedding
+              {process.env.NEXT_PUBLIC_COUPLE}'s Wedding
             </p>
             <h1 className="mb-3 text-3xl font-serif font-semibold text-sage-900">
               Dinner Guest Registration
@@ -35,10 +35,10 @@ export default function DinnerPage() {
             apiEndpoint="/api/mark-attendance-dinner"
             getButtonText={(guest, loading) =>
               guest.arrived
-                ? "Already here!"
+                ? `Attending - Table ${guest.table || "N/A"}`
                 : loading
                   ? "Marking..."
-                  : `I am here! Mark my attendance`
+                  : `Mark my attendance`
             }
             renderExtraContent={(guest) =>
               guest.table ? (

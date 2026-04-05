@@ -19,7 +19,7 @@ export default function ChurchPage() {
         <div className="h-full w-full rounded-2xl bg-white p-8 shadow-lg border border-sage-200 flex flex-col">
           <div className="text-center mb-8">
             <p className="text-xl font-serif text-sage-600 mb-2">
-              Jonathan & Rachelle's Wedding
+              {process.env.NEXT_PUBLIC_COUPLE}'s Wedding
             </p>
             <h1 className="mb-3 text-3xl font-serif font-semibold text-sage-900">
               Church Guest Registration
@@ -35,10 +35,10 @@ export default function ChurchPage() {
             apiEndpoint="/api/mark-attendance"
             getButtonText={(guest, loading) =>
               guest.arrived
-                ? "Already here!"
+                ? "Attending"
                 : loading
                   ? "Marking..."
-                  : `I here! Mark my attendance`
+                  : `Mark my attendance`
             }
           />
         </div>
