@@ -13,8 +13,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "J&R Wedding",
-  description: "Registration site for Jonathan and Rachelle's wedding",
+  title: process.env.NEXT_PUBLIC_TITLE || "Wedding Guest Registration",
+  description:
+    process.env.NEXT_PUBLIC_DESCRIPTION ||
+    "Website for Wedding Registration and Attendance Tracking",
   icons: {
     icon: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👫</text></svg>",
   },
