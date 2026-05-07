@@ -26,7 +26,8 @@ export async function POST(req: Request) {
       );
     }
 
-    // Read columns A through H from Dinner sheet so we can get table number (col D)
+    // Read columns A through H from Dinner sheet
+    // Column D = Arrived (YES/NO), Column E = Table Number
     const getRes = await sheets.spreadsheets.values.get({
       spreadsheetId,
       range: "Dinner!A:H",
@@ -41,13 +42,13 @@ export async function POST(req: Request) {
 
     const rowNumber = rowIndex + 1;
     const tableRaw =
-      values[rowIndex] && values[rowIndex][3]
-        ? values[rowIndex][3].toString().trim()
+      values[rowIndex] && values[rowIndex][4]
+        ? values[rowIndex][4].toString().trim()
         : "";
 
     const existing =
-      values[rowIndex] && values[rowIndex][7]
-        ? values[rowIndex][7].toString().trim().toUpperCase()
+      values[rowIndex] && values[rowIndex][3]
+        ? values[rowIndex][3].toString().trim().toUpperCase()
         : "";
     if (existing === "YES") {
       console.log(

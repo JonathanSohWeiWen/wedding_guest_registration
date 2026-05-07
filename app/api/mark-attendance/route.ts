@@ -27,10 +27,10 @@ export async function POST(req: Request) {
       );
     }
 
-    // Read columns A through H so we can check arrival status in column H
+    // Read columns A through H from Dinner sheet to check arrival status in column D
     const getRes = await sheets.spreadsheets.values.get({
       spreadsheetId,
-      range: "Church!A:H",
+      range: "Dinner!A:H",
     });
     const values: unknown[][] = getRes.data.values ?? [];
     const rowIndex = values.findIndex(
@@ -43,8 +43,8 @@ export async function POST(req: Request) {
     const rowNumber = rowIndex + 1; // sheets rows are 1-based
 
     const existing =
-      values[rowIndex] && values[rowIndex][7]
-        ? values[rowIndex][7].toString().trim().toUpperCase()
+      values[rowIndex] && values[rowIndex][3]
+        ? values[rowIndex][3].toString().trim().toUpperCase()
         : "";
     if (existing === "YES") {
       console.log(
@@ -56,7 +56,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const range = `Church!D${rowNumber}`;
+    const range = `Dinner!D${rowNumber}`;
     await sheets.spreadsheets.values.update({
       spreadsheetId,
       range,
