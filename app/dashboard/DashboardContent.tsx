@@ -42,7 +42,7 @@ export default function DashboardContent() {
           <h1
             className="text-2xl mb-4"
             style={{
-              fontFamily: "cursive",
+              fontFamily: "var(--font-script), cursive",
               color: "#758857",
               fontWeight: "400",
               fontStyle: "italic",
@@ -104,7 +104,7 @@ export default function DashboardContent() {
           <h1
             className="text-3xl mb-2"
             style={{
-              fontFamily: "cursive",
+              fontFamily: "var(--font-script), cursive",
               color: "#758857",
               fontWeight: "400",
               fontStyle: "italic",
@@ -270,7 +270,7 @@ export default function DashboardContent() {
                           color: isVIP ? "#C9A86A" : "#758857",
                         }}
                       >
-                        {isVIP ? "VIP" : `Table ${table}`}
+                        {isVIP ? table : `Table ${table}`}
                       </span>
                       {isVIP && (
                         <span

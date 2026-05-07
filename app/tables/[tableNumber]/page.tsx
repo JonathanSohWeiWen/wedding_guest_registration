@@ -36,7 +36,7 @@ export default async function TablePage({
             <h1
               className="text-4xl sm:text-5xl mb-2"
               style={{
-                fontFamily: "cursive",
+                fontFamily: "var(--font-script), cursive",
                 color: "#758857",
                 fontWeight: "400",
                 fontStyle: "italic",

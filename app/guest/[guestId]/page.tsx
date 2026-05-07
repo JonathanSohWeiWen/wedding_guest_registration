@@ -61,7 +61,7 @@ export default async function GuestInvite({
           <h1
             className="text-4xl sm:text-5xl"
             style={{
-              fontFamily: "cursive",
+              fontFamily: "var(--font-script), cursive",
               color: colors.text.primary,
               fontWeight: "400",
               fontStyle: "italic",
@@ -157,7 +157,10 @@ export default async function GuestInvite({
           >
             ❦
           </div>
-          <p className="text-sm" style={{ fontFamily: "cursive" }}>
+          <p
+            className="text-sm"
+            style={{ fontFamily: "var(--font-script), cursive" }}
+          >
             {process.env.NEXT_PUBLIC_COUPLE}
           </p>
         </div>

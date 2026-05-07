@@ -46,7 +46,7 @@ export function isVIPTable(table: TableId): boolean {
  * Seat assignments for long tables (checkerboard pattern)
  */
 export const LONG_TABLE_SEATS = {
-  left: ["A", "C", "E", "G", "I", "K", "M", "O", "Q", "S", "U", "W", "Y"],
+  left: ["A", "C", "E", "G", "I", "K", "M", "O", "Q", "S", "U", "W"],
   right: ["B", "D", "F", "H", "J", "L", "N", "P", "R", "T", "V", "X"],
 } as const;
 

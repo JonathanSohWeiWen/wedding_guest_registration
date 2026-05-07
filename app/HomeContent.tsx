@@ -52,7 +52,7 @@ export default function HomeContent() {
           <h1
             className="text-4xl sm:text-5xl px-4 mb-4"
             style={{
-              fontFamily: "cursive",
+              fontFamily: "var(--font-script), cursive",
               color: "#758857",
               fontWeight: "400",
               fontStyle: "italic",
@@ -430,8 +430,8 @@ const renderChairs = (seats: number) => {
         key={`chair-${i}`}
         className="absolute w-2 h-2 sm:w-3 sm:h-3 rounded-sm"
         style={{
-          left: `${x}`,
-          top: `${y}`,
+          left: `${x}%`,
+          top: `${y}%`,
           transform: `translate(-50%, -50%) rotate(${rotation}deg)`,
           backgroundColor: "#7c7c62",
         }}

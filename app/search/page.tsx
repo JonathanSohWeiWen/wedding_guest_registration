@@ -45,7 +45,7 @@ export default function SearchPage() {
           <h1
             className="text-4xl sm:text-5xl mb-3"
             style={{
-              fontFamily: "cursive",
+              fontFamily: "var(--font-script), cursive",
               color: colors.primary,
               fontWeight: "400",
               fontStyle: "italic",
@@ -103,7 +103,7 @@ export default function SearchPage() {
               placeholder="Enter your name..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-6 py-4 text-base sm:text-lg outline-none transition-all focus:shadow-md"
+              className="w-full px-6 py-4 text-base sm:text-lg text-center outline-none transition-all focus:shadow-md"
               style={{
                 fontFamily: "Inter, sans-serif",
                 color: colors.text.primary,
@@ -174,7 +174,7 @@ export default function SearchPage() {
           className="inline-block px-6 py-3 transition-all"
           style={{
             fontFamily: "Inter, sans-serif",
-            color: colors.text.primary,
+            color: colors.primary,
             backgroundColor: "transparent",
           }}
         >

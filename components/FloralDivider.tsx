@@ -2,7 +2,7 @@ import { colors } from "@/app/lib/data/constants";
 
 export default function FloralDivider() {
   return (
-    <div className="flex justify-Center my-3" aria-hidden="true">
+    <div className="flex justify-center my-3" aria-hidden="true">
       <svg
         width="120"
         height="24"
