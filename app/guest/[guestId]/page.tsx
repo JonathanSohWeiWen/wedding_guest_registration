@@ -23,7 +23,7 @@ export default async function GuestInvite({
   const guest = await getGuestById(guestId);
 
   if (!guest) notFound();
-  console.log(guest);
+  guest;
 
   const isVIP =
     typeof guest.tableNumber === "string" &&

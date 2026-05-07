@@ -31,7 +31,6 @@ export default function SearchPage() {
     );
   }, [guestList, searchQuery]);
 
-  console.log(guestList);
   const showResults = searchQuery.trim() !== "";
   const hasResults = searchResults.length > 0;
 

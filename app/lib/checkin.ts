@@ -88,9 +88,7 @@ export function getCheckInStatus(guestName: string): CheckInStatus {
   }
 
   const normalized = normalizeGuestName(guestName);
-  console.log(normalized);
   const checkIns = getAllCheckIns();
-  console.log(checkIns);
   return checkIns[normalized] ?? { checkedIn: false, arrivedAt: "" };
 }
 
