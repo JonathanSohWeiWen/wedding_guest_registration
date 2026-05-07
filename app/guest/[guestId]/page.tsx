@@ -7,13 +7,6 @@ import FloralDivider from "@/components/FloralDivider";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-export async function generateStaticParams() {
-  const guests = await getAllGuests();
-  return guests.map((guest) => ({
-    guestId: guest.id,
-  }));
-}
-
 export default async function GuestInvite({
   params,
 }: {

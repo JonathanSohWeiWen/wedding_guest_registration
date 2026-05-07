@@ -8,13 +8,6 @@ import {
 import FloralBackground from "@/components/FloralBackground";
 import Link from "next/link";
 
-export async function generateStaticParams() {
-  const tables = getAllTableNumbers();
-  return tables.map((tableNumber) => ({
-    tableNumber: String(tableNumber),
-  }));
-}
-
 export default async function TablePage({
   params,
 }: {
