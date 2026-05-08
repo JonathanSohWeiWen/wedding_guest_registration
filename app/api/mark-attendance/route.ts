@@ -4,6 +4,9 @@ import { getSheetsClient } from "../../lib/google";
 type Body = { name?: string };
 
 export async function POST(req: Request) {
+  const sheet = new URL(req.url).searchParams.get("sheet");
+  if (sheet !== "Church" && sheet !== "Dinner")
+    throw new Error("Invalid sheet name");
   try {
     const body: Body = await req.json();
     const name = body?.name?.trim();
@@ -27,10 +30,10 @@ export async function POST(req: Request) {
       );
     }
 
-    // Read columns A through H from Dinner sheet to check arrival status in column D
+    // Read columns A through H from Church/Dinner sheet to check arrival status in column D
     const getRes = await sheets.spreadsheets.values.get({
       spreadsheetId,
-      range: "Dinner!A:H",
+      range: `${sheet}!A:H`,
     });
     const values: unknown[][] = getRes.data.values ?? [];
     const rowIndex = values.findIndex(
@@ -56,7 +59,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const range = `Dinner!D${rowNumber}`;
+    const range = `${sheet}!D${rowNumber}`;
     await sheets.spreadsheets.values.update({
       spreadsheetId,
       range,

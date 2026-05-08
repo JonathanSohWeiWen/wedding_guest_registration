@@ -1,10 +1,5 @@
 import { getGuestsByTableNumber, type Guest } from "@/app/lib/data/guests";
-import {
-  getAllTableNumbers,
-  isLongTable,
-  isVIPTable,
-  LONG_TABLE_SEATS,
-} from "@/app/lib/utils";
+import { isLongTable, isVIPTable, LONG_TABLE_SEATS } from "@/app/lib/utils";
 import FloralBackground from "@/components/FloralBackground";
 import Link from "next/link";
 
@@ -16,7 +11,7 @@ export default async function TablePage({
   const { tableNumber } = await params;
   const isVIP = isVIPTable(tableNumber);
   const isLong = isLongTable(tableNumber);
-  const tableGuests = await getGuestsByTableNumber(tableNumber);
+  const tableGuests = await getGuestsByTableNumber("Dinner", tableNumber);
   const seatCount = tableGuests.length;
 
   return (

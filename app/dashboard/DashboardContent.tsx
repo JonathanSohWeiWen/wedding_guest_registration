@@ -13,6 +13,7 @@ export default function DashboardContent() {
 
   const [guests, setGuests] = useState<Guest[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [tab, setTab] = useState<"Church" | "Dinner">("Church");
 
   useEffect(() => {
     if (password !== "WAJ2026") {
@@ -20,7 +21,8 @@ export default function DashboardContent() {
       return;
     }
 
-    void fetch("/api/guests")
+    setIsLoading(true);
+    void fetch(`/api/guests?sheet=${tab}`)
       .then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)))
       .then((data: Guest[]) => setGuests(data))
       .catch((err) => {
@@ -28,7 +30,7 @@ export default function DashboardContent() {
         setGuests([]);
       })
       .finally(() => setIsLoading(false));
-  }, [password]);
+  }, [password, tab]);
 
   // Password protection
   if (password !== "WAJ2026") {
@@ -63,6 +65,23 @@ export default function DashboardContent() {
       </div>
     );
   }
+
+  if (isLoading)
+    return (
+      <div
+        className="flex flex-col min-h-screen items-center justify-center"
+        style={{ backgroundColor: "#FFFFFF" }}
+      >
+        <div className="text-center">
+          <div
+            className="text-lg"
+            style={{ fontFamily: "Inter, sans-serif", color: "#758857" }}
+          >
+            Loading...
+          </div>
+        </div>
+      </div>
+    );
 
   const allTables = sortTables(
     Array.from(new Set(guests.map((g) => g.tableNumber))),
@@ -123,6 +142,40 @@ export default function DashboardContent() {
           >
             Real-time arrival tracking
           </p>
+        </div>
+        <div
+          className="flex justify-center items-center text-center"
+          style={{
+            backgroundColor: "#f9f8f6",
+            border: "1px solid #E0E0DE",
+          }}
+        >
+          <button
+            onClick={() => setTab("Church")}
+            className="text-3xl p-4 w-full border-2 border-emerald-200"
+            style={{
+              backgroundColor: tab === "Church" ? "#c6d4ae" : "#f9f8f6",
+              fontFamily: "Inter, sans-serif",
+              color: "#7c7c62",
+              fontSize: "14px",
+              fontWeight: tab === "Church" ? "600" : "400",
+            }}
+          >
+            Church
+          </button>
+          <button
+            onClick={() => setTab("Dinner")}
+            className="text-3xl p-4 w-full border-2 border-emerald-200"
+            style={{
+              backgroundColor: tab === "Dinner" ? "#c6d4ae" : "#f9f8f6",
+              fontFamily: "Inter, sans-serif",
+              color: "#7c7c62",
+              fontSize: "14px",
+              fontWeight: tab === "Dinner" ? "600" : "400",
+            }}
+          >
+            Dinner
+          </button>
         </div>
         <div className="mb-6">
           <h2
@@ -237,85 +290,87 @@ export default function DashboardContent() {
             </div>
           </div>
         </div>
-        <div className="mb-6 flex-1">
-          <h2
-            className="text-sm uppercase mb-3"
-            style={{
-              fontFamily: "Inter, sans-serif",
-              color: "#758857",
-              letterSpacing: "1px",
-              fontWeight: "500",
-            }}
-          >
-            Breakdown by Table
-          </h2>
-          <div className="space-y-2">
-            {guestsByTable.map(({ table, arrived, total, percentage }) => {
-              const isVIP = isVIPTable(table);
-              return (
-                <div
-                  key={String(table)}
-                  className="p-3 rounded-lg"
-                  style={{
-                    backgroundColor: "#f9f8f6",
-                    border: "1px solid #E0E0DE",
-                  }}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-2">
-                      <span
-                        className="font-medium"
-                        style={{
-                          fontFamily: "Inter, sans-serif",
-                          color: isVIP ? "#C9A86A" : "#758857",
-                        }}
-                      >
-                        {isVIP ? table : `Table ${table}`}
-                      </span>
-                      {isVIP && (
+        {tab === "Dinner" && (
+          <div className="mb-6 flex-1">
+            <h2
+              className="text-sm uppercase mb-3"
+              style={{
+                fontFamily: "Inter, sans-serif",
+                color: "#758857",
+                letterSpacing: "1px",
+                fontWeight: "500",
+              }}
+            >
+              Breakdown by Table
+            </h2>
+            <div className="space-y-2">
+              {guestsByTable.map(({ table, arrived, total, percentage }) => {
+                const isVIP = isVIPTable(table);
+                return (
+                  <div
+                    key={String(table)}
+                    className="p-3 rounded-lg"
+                    style={{
+                      backgroundColor: "#f9f8f6",
+                      border: "1px solid #E0E0DE",
+                    }}
+                  >
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2">
                         <span
-                          className="text-xs px-2 py-0.5 rounded"
+                          className="font-medium"
                           style={{
-                            backgroundColor: "#C9A86A",
-                            color: "#ffffff",
                             fontFamily: "Inter, sans-serif",
-                            fontWeight: "500",
-                            fontSize: "9px",
+                            color: isVIP ? "#C9A86A" : "#758857",
                           }}
                         >
-                          VIP
+                          {isVIP ? table : `Table ${table}`}
                         </span>
-                      )}
+                        {isVIP && (
+                          <span
+                            className="text-xs px-2 py-0.5 rounded"
+                            style={{
+                              backgroundColor: "#C9A86A",
+                              color: "#ffffff",
+                              fontFamily: "Inter, sans-serif",
+                              fontWeight: "500",
+                              fontSize: "9px",
+                            }}
+                          >
+                            VIP
+                          </span>
+                        )}
+                      </div>
+                      <div
+                        style={{
+                          fontFamily: "Inter, sans-serif",
+                          color: "#7c7c62",
+                          fontSize: "13px",
+                        }}
+                      >
+                        {arrived}/{total} ({percentage}%)
+                      </div>
                     </div>
                     <div
-                      style={{
-                        fontFamily: "Inter, sans-serif",
-                        color: "#7c7c62",
-                        fontSize: "13px",
-                      }}
+                      className="w-full rounded-full h-2"
+                      style={{ backgroundColor: "#E0E0DE" }}
                     >
-                      {arrived}/{total} ({percentage}%)
+                      <div
+                        className="h-2 rounded-full transition-all"
+                        style={{
+                          width: `${percentage}%`,
+                          backgroundColor: getProgressColor(percentage),
+                          transition:
+                            "width 0.3s ease, background-color 0.3 ease",
+                        }}
+                      />
                     </div>
                   </div>
-                  <div
-                    className="w-full rounded-full h-2"
-                    style={{ backgroundColor: "#E0E0DE" }}
-                  >
-                    <div
-                      className="h-2 rounded-full transition-all"
-                      style={{
-                        width: `${percentage}%`,
-                        backgroundColor: getProgressColor(percentage),
-                        transition:
-                          "width 0.3s ease, background-color 0.3 ease",
-                      }}
-                    />
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
         <div className="mt-auto pt-6 pb-4 text-center">
           <Link
             href="/"

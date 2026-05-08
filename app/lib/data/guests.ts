@@ -60,14 +60,14 @@ function parseGuestRow(row: unknown[], index: number): Guest | null {
   };
 }
 
-async function fetchGuestRows(): Promise<Guest[]> {
+async function fetchGuestRows(sheet: "Church" | "Dinner"): Promise<Guest[]> {
   try {
     const sheets = await getSheetsClient();
     if (!sheets || !process.env.SPREADSHEET_ID) return [];
 
     const res = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.SPREADSHEET_ID,
-      range: "Dinner!A:H",
+      range: `${sheet}!A:H`,
     });
 
     const values = res.data.values ?? [];
@@ -81,40 +81,25 @@ async function fetchGuestRows(): Promise<Guest[]> {
   }
 }
 
-export async function getAllGuests(): Promise<Guest[]> {
-  return await fetchGuestRows();
+export async function getAllGuests(
+  sheet: "Church" | "Dinner",
+): Promise<Guest[]> {
+  return await fetchGuestRows(sheet);
 }
 
-export async function searchGuests(query: string): Promise<Guest[]> {
-  if (!query || query.trim() === "") return [];
-  const term = query.toLowerCase().trim();
-  const guests = await getAllGuests();
-  return guests.filter(
-    (guest) =>
-      guest.firstName.toLowerCase().includes(term) ||
-      guest.lastName.toLowerCase().includes(term),
-  );
-}
-
-export async function getGuestById(id: string): Promise<Guest | undefined> {
-  const guests = await getAllGuests();
+export async function getGuestById(
+  sheet: "Church" | "Dinner",
+  id: string,
+): Promise<Guest | undefined> {
+  const guests = await getAllGuests(sheet);
   return guests.find((guest) => guest.id === id);
 }
 
-export async function getUniqueGuestIds(): Promise<string[]> {
-  const guests = await getAllGuests();
-  return guests.map((guest) => guest.id);
-}
-
-export async function getTableNumberByGuestId(id: string): Promise<TableId> {
-  const guest = await getGuestById(id);
-  return guest ? guest.tableNumber : 0;
-}
-
 export async function getGuestsByTableNumber(
+  sheet: "Church" | "Dinner",
   tableNumber: TableId,
 ): Promise<Guest[]> {
-  const guests = await getAllGuests();
+  const guests = await getAllGuests(sheet);
   return guests.filter(
     (guest) => String(guest.tableNumber) === String(tableNumber),
   );

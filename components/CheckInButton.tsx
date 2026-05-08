@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { colors } from "@/app/lib/data/constants";
+import { usePathname } from "next/navigation";
 
 interface CheckInButtonProps {
   guestId: string;
@@ -17,6 +18,7 @@ export default function CheckInButton({
   const [buttonState, setButtonState] = useState<ButtonState>("not-checked-in");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const sheet = usePathname().split("/")[1] === "church" ? "Church" : "Dinner";
 
   useEffect(() => {
     // Check if guest has already arrived by querying the sheet
@@ -26,7 +28,7 @@ export default function CheckInButton({
   const checkArrivalStatus = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch("/api/check-arrival", {
+      const res = await fetch(`/api/check-arrival?sheet=${sheet}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: guestName }),
@@ -54,7 +56,7 @@ export default function CheckInButton({
     setError(null);
 
     try {
-      const res = await fetch("/api/mark-attendance", {
+      const res = await fetch(`/api/mark-attendance?sheet=${sheet}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: guestName }),
