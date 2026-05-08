@@ -8,7 +8,7 @@ export interface Guest {
   firstName: string;
   lastName: string;
   tableNumber: TableId;
-  seat?: string; // Optional seat assignment (e.g. "A", "B", "C" for tables 30 & 31)
+  seat?: string; // Optional seat assignment (e.g. "A", "B", "C" for tables 30 & 31). Also parsed from combined values like "30A"/"31C".
   arrived?: boolean;
 }
 
@@ -39,6 +39,12 @@ function parseGuestRow(row: unknown[], index: number): Guest | null {
   const tableRaw = (cells[4] ?? "").toString().trim();
   const seatRaw = (cells[5] ?? "").toString().trim();
 
+  const combinedTableMatch = tableRaw.match(/^([0-9]+)\s*([A-Za-z])?$/);
+  const numericTable = combinedTableMatch ? combinedTableMatch[1] : tableRaw;
+  const seatFromTable = combinedTableMatch
+    ? combinedTableMatch[2]?.toUpperCase()
+    : undefined;
+
   const nameParts = fullName.split(/\s+/).filter(Boolean);
   const firstName = nameParts.shift() ?? "";
   const lastName = nameParts.join(" ") || "";
@@ -48,8 +54,8 @@ function parseGuestRow(row: unknown[], index: number): Guest | null {
     id: slugify(idBase),
     firstName,
     lastName,
-    tableNumber: normalizeTableId(tableRaw),
-    seat: seatRaw || undefined,
+    tableNumber: normalizeTableId(numericTable),
+    seat: seatRaw || seatFromTable || undefined,
     arrived: arrivedRaw === "YES",
   };
 }
@@ -105,7 +111,11 @@ export async function getTableNumberByGuestId(id: string): Promise<TableId> {
   return guest ? guest.tableNumber : 0;
 }
 
-export async function getGuestsByTableNumber(tableNumber: TableId): Promise<Guest[]> {
+export async function getGuestsByTableNumber(
+  tableNumber: TableId,
+): Promise<Guest[]> {
   const guests = await getAllGuests();
-  return guests.filter((guest) => String(guest.tableNumber) === String(tableNumber));
+  return guests.filter(
+    (guest) => String(guest.tableNumber) === String(tableNumber),
+  );
 }

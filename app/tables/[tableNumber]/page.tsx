@@ -201,11 +201,15 @@ const LongTableSeatingChart = ({
               return (
                 <div
                   key={seat}
-                  className="flex items-center justify-between px-3 py-2 rounded"
+                  className="flex items-center justify-center px-3 py-2 rounded text-center"
                   style={{
-                    backgroundColor: guest ? "#f9f8f6" : "#FAFAFA",
+                    backgroundColor: guest
+                      ? guest.arrived
+                        ? "#E8F5E9"
+                        : "#f9f8f6"
+                      : "#FAFAFA",
                     border: "1px solid #E0E0DE",
-                    height: "40px",
+                    minHeight: "40px",
                   }}
                 >
                   <span
@@ -216,22 +220,8 @@ const LongTableSeatingChart = ({
                       fontWeight: "400",
                     }}
                   >
-                    {guest && `${guest.firstName} ${guest.lastName}`}
+                    {guest ? `${guest.firstName} ${guest.lastName}` : ""}
                   </span>
-                  {guest && guest.arrived && (
-                    <span
-                      className="px-2 py-0.5 rounded text-xs"
-                      style={{
-                        backgroundColor: "#E8F5E9",
-                        color: "#2E7D32",
-                        fontWeight: "500",
-                        fontFamily: "Inter, sans-serif",
-                        fontSize: "9px",
-                      }}
-                    >
-                      ✓
-                    </span>
-                  )}
                 </div>
               );
             })}
@@ -263,11 +253,15 @@ const LongTableSeatingChart = ({
               return (
                 <div
                   key={seat}
-                  className="flex items-center justify-between px-3 py-2 rounded"
+                  className="flex items-center justify-center px-3 py-2 rounded text-center"
                   style={{
-                    backgroundColor: guest ? "#f9f8f6" : "#FAFAFA",
+                    backgroundColor: guest
+                      ? guest.arrived
+                        ? "#E8F5E9"
+                        : "#f9f8f6"
+                      : "#FAFAFA",
                     border: "1px solid #E0E0DE",
-                    height: "40px",
+                    minHeight: "40px",
                   }}
                 >
                   <span
@@ -278,26 +272,46 @@ const LongTableSeatingChart = ({
                       fontWeight: "400",
                     }}
                   >
-                    {guest && `${guest.firstName} ${guest.lastName}`}
+                    {guest ? `${guest.firstName} ${guest.lastName}` : ""}
                   </span>
-                  {guest && guest.arrived && (
-                    <span
-                      className="px-2 py-0.5 rounded text-xs"
-                      style={{
-                        backgroundColor: "#E8F5E9",
-                        color: "#2E7D32",
-                        fontWeight: "500",
-                        fontFamily: "Inter, sans-serif",
-                        fontSize: "9px",
-                      }}
-                    >
-                      ✓
-                    </span>
-                  )}
                 </div>
               );
             })}
           </div>
+        </div>
+      </div>
+      <div className="pt-4 flex flex-wrap justify-center gap-4">
+        <div className="flex items-center gap-2">
+          <span
+            className="inline-block w-4 h-4 rounded"
+            style={{ backgroundColor: "#E8F5E9", border: "1px solid #C8E6C9" }}
+          />
+          <span
+            style={{
+              fontFamily: "Inter, sans-serif",
+              color: "#2C2C2A",
+              fontSize: "12px",
+              fontWeight: 500,
+            }}
+          >
+            Arrived
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span
+            className="inline-block w-4 h-4 rounded"
+            style={{ backgroundColor: "#f9f8f6", border: "1px solid #E0E0DE" }}
+          />
+          <span
+            style={{
+              fontFamily: "Inter, sans-serif",
+              color: "#2C2C2A",
+              fontSize: "12px",
+              fontWeight: 500,
+            }}
+          >
+            Seated
+          </span>
         </div>
       </div>
     </div>
