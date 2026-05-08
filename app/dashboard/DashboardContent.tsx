@@ -13,7 +13,11 @@ export default function DashboardContent() {
 
   const [guests, setGuests] = useState<Guest[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [tab, setTab] = useState<"Church" | "Dinner">("Church");
+  const [tab, setTab] = useState<"Church" | "Dinner">(
+    process.env.NEXT_PUBLIC_FEATURES_ENABLED?.includes("CHURCH")
+      ? "Church"
+      : "Dinner",
+  );
 
   useEffect(() => {
     if (password !== "WAJ2026") {
