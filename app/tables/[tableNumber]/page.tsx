@@ -159,7 +159,6 @@ const SeatingList = ({ tableGuests }: { tableGuests: Guest[] }) => {
 };
 
 const LongTableSeatingChart = ({
-  tableNumber,
   tableGuests,
 }: {
   tableNumber: string;
@@ -247,6 +246,7 @@ const LongTableSeatingChart = ({
           >
             RIGHT
           </div>
+          <div style={{ height: "21px" }} />
           <div className="space-y-2">
             {LONG_TABLE_SEATS.right.map((seat) => {
               const guest = getGuestBySeat(seat);

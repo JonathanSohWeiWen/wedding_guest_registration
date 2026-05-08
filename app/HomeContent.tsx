@@ -197,7 +197,7 @@ export default function HomeContent() {
                                 className="absolute w-2 h-2 sm:w-3 sm:h-3 rounded-sm"
                                 style={{
                                   right: "5%",
-                                  top: `${5 + i * 7.3}%`,
+                                  top: `${8.65 + i * 7.3}%`,
                                   transform: "translateX(50%) rotate(90deg)",
                                   backgroundColor: "#7c7c62",
                                 }}
