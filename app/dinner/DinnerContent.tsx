@@ -276,7 +276,7 @@ export default function DinnerContent() {
                 >
                   {tableLayout.map((row, rowIndex) =>
                     row
-                      .slice(0, 3)
+                      .slice(6, 9)
                       .map((table, colIndex) =>
                         rendertTable(
                           highlightTable,
